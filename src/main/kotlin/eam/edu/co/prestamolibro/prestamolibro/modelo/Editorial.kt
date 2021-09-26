@@ -12,8 +12,8 @@ import javax.persistence.Table
 data class Editorial(
     @Id
     @Column(name="codigo_editorial")
-    private val codigo_editorial: Long,
+    val codigo_editorial: Int,
 
     @Column(name="nombre_editorial")
-    private var nombre_editorial:String,
+    var nombre_editorial:String,
 ):Serializable
