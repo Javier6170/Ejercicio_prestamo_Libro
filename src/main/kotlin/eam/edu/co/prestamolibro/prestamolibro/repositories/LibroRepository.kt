@@ -39,9 +39,9 @@ class LibroRepository {
         }
     }
 
-    fun findByEditorial(id: Int): List<Libro> {
-        val query = em.createQuery("SELECT lib FROM Libro lib WHERE lib.id_editorial.codigo_editorial =: codigo_editorial")
-        query.setParameter("codigo_editorial", id)
+    fun findByEditorial(id: Long): List<Libro> {
+        val query = em.createQuery("SELECT lib FROM Libro lib WHERE lib.id_editorial.id =: id")
+        query.setParameter("id", id)
 
         return query.resultList as List<Libro>
     }

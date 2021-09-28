@@ -1,14 +1,12 @@
 package eam.edu.co.prestamolibro.prestamolibro
 import eam.edu.co.prestamolibro.prestamolibro.modelo.*
 import eam.edu.co.prestamolibro.prestamolibro.repositories.LibroAutorRepository
-import eam.edu.co.prestamolibro.prestamolibro.repositories.LibroRepository
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import javax.persistence.EntityManager
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 
 @SpringBootTest
@@ -27,11 +25,11 @@ class LibroAutorRepositoryTest {
 
     @Test
     fun testCreate() {
-        libroAutorRepository.create(Libro_autor(1, Autor(2, "juan", "marin"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
+        libroAutorRepository.create(Libro_autor(1L, Autor(2, "juan", "marin"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
 
-        val libroAutor = entityManager.find(Libro_autor::class.java,1)
+        val libroAutor = entityManager.find(Libro_autor::class.java,1L)
         Assertions.assertNotNull(libroAutor)
-        Assertions.assertEquals(1, libroAutor.id)
+        Assertions.assertEquals(1L, libroAutor.id)
         Assertions.assertEquals("Matematica Vectorial", libroAutor.libro.nombre_Libro)
         Assertions.assertEquals("Castellana", libroAutor.libro.id_editorial.nombre_editorial)
     }
@@ -39,10 +37,10 @@ class LibroAutorRepositoryTest {
     @Test
     fun testUpdate() {
         //prerequisito
-        entityManager.persist(Libro_autor(1, Autor(2, "juan", "marin"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
+        entityManager.persist(Libro_autor(1L, Autor(2, "juan", "marin"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
 
         //ejecutando...
-        val libroAutor = entityManager.find(Libro_autor::class.java, 1)
+        val libroAutor = entityManager.find(Libro_autor::class.java, 1L)
         libroAutor.libro.isbn_libro = "1020-4040-89871"
         libroAutor.libro.nombre_Libro = "Castellano basico"
         libroAutor.libro.id_editorial.nombre_editorial = "Babel"
@@ -51,7 +49,7 @@ class LibroAutorRepositoryTest {
         libroAutorRepository.update(libroAutor)
 
         //assersiones
-        val libroAutorAssert = entityManager.find(Libro_autor::class.java, 1)
+        val libroAutorAssert = entityManager.find(Libro_autor::class.java, 1L)
         Assertions.assertEquals("1020-4040-89871", libroAutorAssert.libro.isbn_libro)
         Assertions.assertEquals("Castellano basico", libroAutorAssert.libro.nombre_Libro)
         Assertions.assertEquals("Babel", libroAutorAssert.libro.id_editorial.nombre_editorial)
@@ -60,9 +58,9 @@ class LibroAutorRepositoryTest {
 
     @Test
     fun findTest() {
-        entityManager.persist(Libro_autor(1, Autor(2, "juan", "marin"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
+        entityManager.persist(Libro_autor(1L, Autor(2, "juan", "marin"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
 
-        val libroAutor = libroAutorRepository.find(1)
+        val libroAutor = libroAutorRepository.find(1L)
 
         Assertions.assertNotNull(libroAutor)
         Assertions.assertEquals("Matematica Vectorial", libroAutor?.libro?.nombre_Libro)
@@ -74,21 +72,21 @@ class LibroAutorRepositoryTest {
 
     @Test
     fun testDelete() {
-        entityManager.persist(Libro_autor(1, Autor(2, "juan", "marin"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
+        entityManager.persist(Libro_autor(1L, Autor(2, "juan", "marin"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
 
         //ejecucion de la preuba
-        libroAutorRepository.delete(1)
+        libroAutorRepository.delete(1L)
 
         //assersiones
-        val libroAutor = entityManager.find(Libro_autor::class.java, 1)
+        val libroAutor = entityManager.find(Libro_autor::class.java, 1L)
         Assertions.assertNull(libroAutor)
     }
 
     @Test
     fun findByAutor(){
-        val autor = Autor(2, "juan", "marin")
+        val autor = Autor(2L, "juan", "marin")
         entityManager.persist(autor)
-        val editorial = Editorial(2,"Castellana")
+        val editorial = Editorial(2L,"Castellana")
         entityManager.persist(editorial)
         val libro = Libro("1","178643438","Matematica Vectorial",editorial)
         entityManager.persist(libro)
@@ -97,12 +95,12 @@ class LibroAutorRepositoryTest {
         val libro3 = Libro("3","6465165498","Introduccion a los lenguajes de programacion",editorial)
         entityManager.persist(libro3)
 
-        entityManager.persist(Libro_autor(1, autor,libro))
-        entityManager.persist(Libro_autor(2, autor,libro2))
-        entityManager.persist(Libro_autor(3, autor,libro3))
+        entityManager.persist(Libro_autor(1L, autor,libro))
+        entityManager.persist(Libro_autor(2L, autor,libro2))
+        entityManager.persist(Libro_autor(3L, autor,libro3))
 
         //ejecutando pruebas
-        val autores = libroAutorRepository.findByAutor(2)
+        val autores = libroAutorRepository.findByAutor(2L)
 
         //assertions
         Assertions.assertEquals(3,autores.size)
@@ -110,19 +108,19 @@ class LibroAutorRepositoryTest {
 
     @Test
     fun findByLibro(){
-        val autor = Autor(2, "juan", "marin")
+        val autor = Autor(2L, "juan", "marin")
         entityManager.persist(autor)
-        val autor2 = Autor(3, "santiago", "gutierrez")
+        val autor2 = Autor(3L, "santiago", "gutierrez")
         entityManager.persist(autor2)
-        val autor3 = Autor(4, "felipe", "garcia")
+        val autor3 = Autor(4L, "felipe", "garcia")
         entityManager.persist(autor3)
-        val editorial = Editorial(2,"Castellana")
+        val editorial = Editorial(2L,"Castellana")
         entityManager.persist(editorial)
         val libro = Libro("1","178643438","Matematica Vectorial",editorial)
         entityManager.persist(libro)
-        entityManager.persist(Libro_autor(1, autor,libro))
-        entityManager.persist(Libro_autor(2, autor2,libro))
-        entityManager.persist(Libro_autor(3, autor3,libro))
+        entityManager.persist(Libro_autor(1L, autor,libro))
+        entityManager.persist(Libro_autor(2L, autor2,libro))
+        entityManager.persist(Libro_autor(3L, autor3,libro))
 
         //ejecutando pruebas
         val libros = libroAutorRepository.findByLibro("1")

@@ -9,7 +9,7 @@ import javax.persistence.*
 data class Libro(
     @Id
     @Column(name="codigo_libro")
-    val codigo_libro:String,
+    val id:String,
 
     @Column(name="isbn_libro")
     var isbn_libro:String,
@@ -24,4 +24,4 @@ data class Libro(
 
 
 
-):Serializable
+    ):Serializable

@@ -1,7 +1,6 @@
 package eam.edu.co.prestamolibro.prestamolibro
 
 import eam.edu.co.prestamolibro.prestamolibro.modelo.Editorial
-import eam.edu.co.prestamolibro.prestamolibro.modelo.Prestamo
 import eam.edu.co.prestamolibro.prestamolibro.repositories.EditorialRepository
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions
@@ -26,9 +25,9 @@ class EditorialRepositoryTest {
 
     @Test
     fun testCreate() {
-        editorialRepository.create(Editorial(1, "castellana"))
+        editorialRepository.create(Editorial(1L, "castellana"))
 
-        val editorial = entityManager.find(Editorial::class.java,1)
+        val editorial = entityManager.find(Editorial::class.java,1L)
         Assertions.assertNotNull(editorial)
         Assertions.assertEquals("castellana", editorial.nombre_editorial)
     }
@@ -36,24 +35,24 @@ class EditorialRepositoryTest {
     @Test
     fun testUpdate() {
         //prerequisito
-        entityManager.persist(Editorial(1,"castellana"))
+        entityManager.persist(Editorial(1L,"castellana"))
 
         //ejecutando...
-        val editorial = entityManager.find(Editorial::class.java, 1)
+        val editorial = entityManager.find(Editorial::class.java, 1L)
         editorial.nombre_editorial = "babel"
 
         editorialRepository.update(editorial)
 
         //assersiones
-        val editorialAssert = entityManager.find(Editorial::class.java, 1)
+        val editorialAssert = entityManager.find(Editorial::class.java, 1L)
         Assertions.assertEquals("babel", editorialAssert.nombre_editorial)
     }
 
     @Test
     fun findTest() {
-        entityManager.persist(Editorial(1,"castellana"))
+        entityManager.persist(Editorial(1L,"castellana"))
 
-        val editorial = editorialRepository.find(1)
+        val editorial = editorialRepository.find(1L)
 
         Assertions.assertNotNull(editorial)
         Assertions.assertEquals("castellana", editorial?.nombre_editorial)
@@ -62,12 +61,12 @@ class EditorialRepositoryTest {
 
     @Test
     fun testDelete() {
-        entityManager.persist(Editorial(1,"castellana"))
+        entityManager.persist(Editorial(1L,"castellana"))
         //ejecucion de la preuba
-        editorialRepository.delete(1)
+        editorialRepository.delete(1L)
 
         //assersiones
-        val editorial = entityManager.find(Editorial::class.java, 1)
+        val editorial = entityManager.find(Editorial::class.java, 1L)
         Assertions.assertNull(editorial)
     }
 

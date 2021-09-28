@@ -22,7 +22,7 @@ class EditorialRepository {
     }
 
     //? quiere decir q algo puede ser null
-    fun find(id:Int): Editorial?{
+    fun find(id:Long): Editorial?{
         //se el envia la clase que quiero buscar y el valor de la llave primaria que quiero buscar.
         return em.find(Editorial::class.java, id) //busca en la bd por llave primaria
     }
@@ -31,7 +31,7 @@ class EditorialRepository {
         em.merge(editorial) //actualizar un registro sobre la BD
     }
 
-    fun delete(id: Int) {
+    fun delete(id: Long) {
         //buscan por id la entidad que quiero borrar
         val editorial = find(id)
 

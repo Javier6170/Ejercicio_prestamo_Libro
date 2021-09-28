@@ -9,7 +9,7 @@ import javax.persistence.*
 data class Libro_autor(
     @Id
     @Column(name="id")
-    val id:Int,
+    val id: Long,
 
     @ManyToOne
     @JoinColumn(name="id_autor")

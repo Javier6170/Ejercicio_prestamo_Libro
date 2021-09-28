@@ -10,7 +10,7 @@ import javax.persistence.*
 data class Prestamo(
     @Id
     @Column(name="id")
-    val id:Int,
+    val id: Long,
 
     @Column(name="fecha_prestamo")
     val fecha_prestamo:Date,

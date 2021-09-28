@@ -84,14 +84,14 @@ class LibroRepositoryTest {
 
     @Test
     fun testFindByEditorial(){
-        val editorial = Editorial(1,"Castellana")
+        val editorial = Editorial(1L,"Castellana")
         entityManager.persist(editorial)
         entityManager.persist(Libro("1","654646464","Matematica vectorial",editorial))
         entityManager.persist(Libro("2","9151651165","Castellano basico",editorial))
 
 
         //ejecutando pruebas
-        val editoriales = libroRepository.findByEditorial(1)
+        val editoriales = libroRepository.findByEditorial(1L)
 
         //assertions
         Assertions.assertEquals(2,editoriales.size)

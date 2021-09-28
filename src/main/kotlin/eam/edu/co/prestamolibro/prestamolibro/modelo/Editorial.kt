@@ -12,7 +12,7 @@ import javax.persistence.Table
 data class Editorial(
     @Id
     @Column(name="codigo_editorial")
-    val codigo_editorial: Int,
+    val id: Long,
 
     @Column(name="nombre_editorial")
     var nombre_editorial:String,

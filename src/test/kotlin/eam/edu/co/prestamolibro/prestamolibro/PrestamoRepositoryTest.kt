@@ -29,9 +29,9 @@ class PrestamoRepositoryTest {
 
     @Test
     fun testCreate() {
-        prestamoRepository.create(Prestamo(1,Date(23,9,2021),Usuario("1","rodriguez","javier"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
+        prestamoRepository.create(Prestamo(1L,Date(23,9,2021),Usuario("1","rodriguez","javier"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
 
-        val prestamo = entityManager.find(Prestamo::class.java,1)
+        val prestamo = entityManager.find(Prestamo::class.java,1L)
         Assertions.assertNotNull(prestamo)
         Assertions.assertEquals("Matematica Vectorial", prestamo.libro.nombre_Libro)
         Assertions.assertEquals("178643438", prestamo.libro.isbn_libro)
@@ -44,10 +44,10 @@ class PrestamoRepositoryTest {
     @Test
     fun testUpdate() {
         //prerequisito
-        entityManager.persist(Prestamo(1,Date(2021,9,23),Usuario("1","rodriguez","javier"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
+        entityManager.persist(Prestamo(1L,Date(2021,9,23),Usuario("1","rodriguez","javier"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
 
         //ejecutando...
-        val prestamo = entityManager.find(Prestamo::class.java, 1)
+        val prestamo = entityManager.find(Prestamo::class.java, 1L)
         prestamo.id_usuario.nombre_usuario = "gladys"
         prestamo.id_usuario.apellido_usuario = "martin"
         prestamo.libro.isbn_libro = "1020-4040-89871"
@@ -57,7 +57,7 @@ class PrestamoRepositoryTest {
         prestamoRepository.update(prestamo)
 
         //assersiones
-        val prestamoAssert = entityManager.find(Prestamo::class.java, 1)
+        val prestamoAssert = entityManager.find(Prestamo::class.java, 1L)
         Assertions.assertEquals("gladys", prestamoAssert.id_usuario.nombre_usuario)
         Assertions.assertEquals("martin", prestamoAssert.id_usuario.apellido_usuario)
         Assertions.assertEquals("1020-4040-89871",  prestamo.libro.isbn_libro)
@@ -67,9 +67,9 @@ class PrestamoRepositoryTest {
 
     @Test
     fun findTest() {
-        entityManager.persist(Prestamo(1,Date(2021,9,23),Usuario("1","rodriguez","javier"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
+        entityManager.persist(Prestamo(1L,Date(2021,9,23),Usuario("1","rodriguez","javier"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
 
-        val prestamo = prestamoRepository.find(1)
+        val prestamo = prestamoRepository.find(1L)
 
         Assertions.assertNotNull(prestamo)
         Assertions.assertEquals("javier", prestamo?.id_usuario?.nombre_usuario)
@@ -79,13 +79,13 @@ class PrestamoRepositoryTest {
 
     @Test
     fun testDelete() {
-        entityManager.persist(Prestamo(1,Date(2021,9,23),Usuario("1","rodriguez","javier"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
+        entityManager.persist(Prestamo(1L,Date(2021,9,23),Usuario("1","rodriguez","javier"),Libro("1","178643438","Matematica Vectorial",Editorial(2,"Castellana"))))
 
         //ejecucion de la preuba
-        prestamoRepository.delete(1)
+        prestamoRepository.delete(1L)
 
         //assersiones
-        val prestamo = entityManager.find(Prestamo::class.java, 1)
+        val prestamo = entityManager.find(Prestamo::class.java, 1L)
         Assertions.assertNull(prestamo)
     }
 
@@ -93,13 +93,13 @@ class PrestamoRepositoryTest {
     fun testFindByUsuario(){
         val usuario = Usuario("1", "Rodriguez", "Javier")
         entityManager.persist(usuario)
-        val editorial = Editorial(2,"Castellana")
+        val editorial = Editorial(2L,"Castellana")
         entityManager.persist(editorial)
         val libro = Libro("1","178643438","Matematica Vectorial",editorial)
         entityManager.persist(libro)
-        entityManager.persist(Prestamo(1,Date(2021,9,25),usuario,libro))
-        entityManager.persist(Prestamo(2,Date(2021,9,26),usuario,libro))
-        entityManager.persist(Prestamo(3,Date(2021,9,27),usuario,libro))
+        entityManager.persist(Prestamo(1L,Date(2021,9,25),usuario,libro))
+        entityManager.persist(Prestamo(2L,Date(2021,9,26),usuario,libro))
+        entityManager.persist(Prestamo(3L,Date(2021,9,27),usuario,libro))
 
         //ejecutando pruebas
         val usuarios = prestamoRepository.findByUsuario("1")
@@ -112,12 +112,12 @@ class PrestamoRepositoryTest {
     fun testFindByLibro(){
         val usuario = Usuario("1", "Rodriguez", "Javier")
         entityManager.persist(usuario)
-        val editorial = Editorial(2,"Castellana")
+        val editorial = Editorial(2L,"Castellana")
         entityManager.persist(editorial)
         val libro = Libro("1","178643438","Matematica Vectorial",editorial)
         entityManager.persist(libro)
-        entityManager.persist(Prestamo(1,Date(2021,9,25),usuario,libro))
-        entityManager.persist(Prestamo(2,Date(2021,9,26),usuario,libro))
+        entityManager.persist(Prestamo(1L,Date(2021,9,25),usuario,libro))
+        entityManager.persist(Prestamo(2L,Date(2021,9,26),usuario,libro))
 
 
         //ejecutando pruebas

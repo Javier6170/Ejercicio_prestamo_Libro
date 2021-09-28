@@ -19,7 +19,7 @@ class PrestamoRespository {
     }
 
     //? quiere decir q algo puede ser null
-    fun find(id:Int): Prestamo?{
+    fun find(id:Long): Prestamo?{
         //se el envia la clase que quiero buscar y el valor de la llave primaria que quiero buscar.
         return em.find(Prestamo::class.java, id) //busca en la bd por llave primaria
     }
@@ -28,7 +28,7 @@ class PrestamoRespository {
         em.merge(prestamo) //actualizar un registro sobre la BD
     }
 
-    fun delete(id: Int) {
+    fun delete(id: Long) {
         //buscan por id la entidad que quiero borrar
         val prestamo = find(id)
 
@@ -47,8 +47,8 @@ class PrestamoRespository {
     }
 
     fun findByLibro(id: String): List<Prestamo> {
-        val query = em.createQuery("SELECT prest FROM Prestamo prest WHERE prest.libro.codigo_libro =: codigo_libro")
-        query.setParameter("codigo_libro", id)
+        val query = em.createQuery("SELECT prest FROM Prestamo prest WHERE prest.libro.id =: id")
+        query.setParameter("id", id)
 
         return query.resultList as List<Prestamo>
     }

@@ -19,7 +19,7 @@ class LibroAutorRepository {
     }
 
     //? quiere decir q algo puede ser null
-    fun find(id:Int): Libro_autor?{
+    fun find(id:Long): Libro_autor?{
         //se el envia la clase que quiero buscar y el valor de la llave primaria que quiero buscar.
         return em.find(Libro_autor::class.java, id) //busca en la bd por llave primaria
     }
@@ -28,7 +28,7 @@ class LibroAutorRepository {
         em.merge(libroAutor) //actualizar un registro sobre la BD
     }
 
-    fun delete(id: Int) {
+    fun delete(id: Long) {
         //buscan por id la entidad que quiero borrar
         val libroAutor = find(id)
 
@@ -39,16 +39,16 @@ class LibroAutorRepository {
         }
     }
 
-    fun findByAutor(id: Int): List<Libro_autor> {
-        val query = em.createQuery("SELECT libAutor FROM Libro_autor libAutor WHERE libAutor.autor.codigo_autor =: codigo_autor")
-        query.setParameter("codigo_autor", id)
+    fun findByAutor(id: Long): List<Libro_autor> {
+        val query = em.createQuery("SELECT libAutor FROM Libro_autor libAutor WHERE libAutor.autor.id =: id")
+        query.setParameter("id", id)
 
         return query.resultList as List<Libro_autor>
     }
 
     fun findByLibro(id: String): List<Libro_autor> {
-        val query = em.createQuery("SELECT libAutor FROM Libro_autor libAutor WHERE libAutor.libro.codigo_libro =: codigo_libro")
-        query.setParameter("codigo_libro", id)
+        val query = em.createQuery("SELECT libAutor FROM Libro_autor libAutor WHERE libAutor.libro.id =: id")
+        query.setParameter("id", id)
 
         return query.resultList as List<Libro_autor>
     }
