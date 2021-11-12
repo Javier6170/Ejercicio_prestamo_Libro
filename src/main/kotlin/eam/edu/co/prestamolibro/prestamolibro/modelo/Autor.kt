@@ -12,11 +12,11 @@ import javax.persistence.Table
 data class Autor(
     @Id
     @Column(name="codigo_autor")
-    private val codigo_autor: Long,
+    val codigo_autor: Int,
 
     @Column(name="name")
-    private var name:String,
+    var name:String,
 
     @Column(name="lastname")
-    private var lastname:String,
+    var lastname:String,
 ):Serializable

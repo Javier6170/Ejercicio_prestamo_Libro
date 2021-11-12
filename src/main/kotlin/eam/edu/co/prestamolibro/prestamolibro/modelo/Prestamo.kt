@@ -10,16 +10,16 @@ import javax.persistence.*
 data class Prestamo(
     @Id
     @Column(name="id")
-    private val id:Long,
+    val id:Int,
 
     @Column(name="fecha_prestamo")
-    private val fecha_prestamo:Date,
+    val fecha_prestamo:Date,
 
     @ManyToOne
     @JoinColumn(name="id_usuario")
-    private val id_usuario:Usuario,
+    val id_usuario:Usuario,
 
     @ManyToOne
     @JoinColumn(name="id_libro")
-    private val libro:Libro,
+    val libro:Libro,
 ):Serializable

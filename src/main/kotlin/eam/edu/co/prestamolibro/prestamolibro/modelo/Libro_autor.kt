@@ -9,13 +9,13 @@ import javax.persistence.*
 data class Libro_autor(
     @Id
     @Column(name="id")
-    private val id:Long,
+    val id:Int,
 
     @ManyToOne
     @JoinColumn(name="id_autor")
-    private val autor:Autor,
+    val autor:Autor,
 
     @ManyToOne
     @JoinColumn(name="id_libro")
-    private val libro:Libro,
+    val libro:Libro,
 ):Serializable
